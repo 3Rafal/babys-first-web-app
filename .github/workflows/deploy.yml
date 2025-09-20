@@ -10,39 +10,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Build Docker image
-      run: docker build -t babys-first-web-app .
+      - name: Build Docker image
+        run: docker build -t babys-first-web-app .
 
-    - name: Copy app to VPS
-      uses: appleboy/scp-action@v0.1.5
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_KEY }}
-        source: "./*"
-        target: "/root/apps/babys-first-web-app/"
+      - name: Copy app to VPS
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          source: "./*"
+          target: "/root/apps/babys-first-web-app/"
 
-    - name: Create .env on VPS
-      uses: appleboy/ssh-action@v0.1.6
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_KEY }}
-        script: |
-          cat <<EOF > /root/apps/babys-first-web-app/.env
-          ASPNETCORE_ENVIRONMENT=Production
-          EOF
-          chmod 600 /root/apps/babys-first-web-app/.env
+      - name: Create .env on VPS
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          script: |
+            cat <<EOF > /root/apps/babys-first-web-app/.env
+            ASPNETCORE_ENVIRONMENT=Production
+            EOF
+            chmod 600 /root/apps/babys-first-web-app/.env
 
-    - name: Restart container
-      uses: appleboy/ssh-action@v0.1.6
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_KEY }}
-        script: |
-          cd /root/apps
-          docker compose up -d babys-first-web-app
+      - name: Restart container
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          script: |
+            cd /root/apps
+            docker compose up -d babys-first-web-app
