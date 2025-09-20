@@ -45,4 +45,4 @@ jobs:
         key: ${{ secrets.VPS_KEY }}
         script: |
           cd /home/youruser/apps
-          docker-compose up -d babys-first-web-app
+          docker compose up -d babys-first-web-app
