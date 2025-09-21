@@ -7,4 +7,8 @@
     <RootNamespace>babys_first_web_app</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
+  </ItemGroup>
+
 </Project>

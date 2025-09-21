@@ -1,9 +1,11 @@
 ﻿@page
 @model IndexModel
+@inject IWebHostEnvironment Env
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+    <h3>Current environment: @Env.EnvironmentName</h3>
 </div>
