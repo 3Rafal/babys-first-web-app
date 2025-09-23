@@ -13,9 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build Docker image
-        run: docker build -t babys-first-web-app .
-
       - name: Copy app to VPS
         uses: appleboy/scp-action@v0.1.5
         with:
@@ -35,7 +32,6 @@ jobs:
             cat <<EOF > /root/apps/babys-first-web-app/babys-first-web-app.env
             ASPNETCORE_ENVIRONMENT=Production
             EOF
-            chmod 600 /root/apps/babys-first-web-app/.env
 
       - name: Restart container
         uses: appleboy/ssh-action@v0.1.6
